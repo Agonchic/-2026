@@ -1,0 +1,39 @@
+#include <iostream>
+ 
+using namespace std;
+ 
+int main() {
+    long long a[100001];
+    bool used[100001];
+    
+    int n;
+    cin >> n;
+ 
+    long long minx = 1000000000000;
+ 
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+        if (a[i] < minx) {
+            minx = a[i];
+        }
+    }
+ 
+    bool ok = true;
+    for (int i = 0; i < n; ++i) {
+        long long pos = a[i] - minx;
+        if (pos >= n || used[pos]) {
+            ok = false;
+            break;
+        }
+        used[pos] = true;
+    }
+ 
+    if (ok) {
+        cout << "Deck looks good\n";
+    } 
+    else {
+        cout << "Scammed\n";
+    }
+ 
+    return 0;
+}
