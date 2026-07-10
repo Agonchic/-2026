@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+ 
+using namespace std;
+ 
+const long long C = 40000000000018LL;
+ 
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+ 
+    int n, m, s;
+    cin >> n >> m >> s;
+    vector<int> u(m), v(m);
+    vector<long long> w(m);
+    
+    for (int i = 0; i < m; ++i) {
+        cin >> u[i] >> v[i] >> w[i];
+    }
+ 
+    vector<long long> dist(n + 1, C);
+    dist[s] = 0;
+ 
+    for (int i = 1; i <= n - 1; ++i) {
+        bool changed = false;
+        for (int j = 0; j < m; ++j) {
+            if (dist[u[j]] < C && dist[u[j]] + w[j] < dist[v[j]]) {
+                dist[v[j]] = dist[u[j]] + w[j];
+                changed = true;
+            }
+        }
+        if (changed == false) {
+            break;
+        }
+    }
+ 
+    for (int j = 0; j < m; ++j) {
+        if (dist[u[j]] < C && dist[u[j]] + w[j] < dist[v[j]]) {
+            cout << "Negative cycle\n";
+            return 0;
+        }
+    }
+ 
+    for (int i = 1; i <= n; ++i) {
+        if (dist[i] == C) {
+            cout << "inf";
+        }
+        else {
+            cout << dist[i];
+        }
+        if (i < n) {
+            cout << " ";
+        }
+    }
+    
+    cout << "\n";
+    return 0;
+}
