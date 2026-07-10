@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+ 
+using namespace std;
+ 
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+ 
+    int n;
+    cin >> n;
+ 
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+    }
+ 
+    long long ans = 0;
+    
+    vector<int> mx = a;
+ 
+    for (int len = 1; len <= n; ++len) {
+        for (int i = 0; i <= n - len; ++i) {
+            ans += mx[i];
+            if (i + len < n) {
+                if (a[i + len] > mx[i]) {
+                    mx[i] = a[i + len];
+                }
+            }
+        }
+    }
+ 
+    cout << ans << "\n";
+ 
+    return 0;
+}
